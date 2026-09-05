@@ -1,0 +1,75 @@
+<?php
+
+namespace App\Models;
+
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
+
+#[Fillable(['name', 'email', 'password'])]
+#[Hidden(['password', 'remember_token'])]
+class User extends Authenticatable implements JWTSubject
+{
+    /** @use HasFactory<UserFactory> */
+    use HasFactory, HasRoles, Notifiable;
+
+    protected $guard_name = 'api';
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
+    }
+
+    /**
+     * Get the identifier that will be stored in the subject claim of the JWT.
+     *
+     * @return mixed
+     */
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    /**
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
+    public function getJWTCustomClaims()
+    {
+        return [
+            'roles' => $this->roles->pluck('name'),
+            'permissions' => $this->getAllPermissions()->pluck('name'),
+        ];
+    }
+    public function perfil(){
+        $this->hasOne(Perfil::class, 'id_usuario','id');
+    }
+    public function proyecto(){
+        $this->HasMany(Proyecto::class, 'id_usuario','id');
+    }
+    public function usuarioTareaCreador(){
+        $this->HasMany(Tarea::class, 'id_usuario','id');
+    }
+    public function usuarioTareaAsignado(){
+        $this->hasMany(Tarea::class, 'id_asignado','id');
+    }
+    public function comentario(){
+        $this->hasMany(Comentario::class,'id_usuario','id');
+    }
+    
+}
