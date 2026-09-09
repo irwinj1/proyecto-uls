@@ -60,7 +60,7 @@ class PerfilController extends Controller
         }
     }
 
-    public function crearPerfil(Request $request,$id){
+    public function crearPerfil(Request $request){
         try {
             $messages = [
                 'nombres.required'=>'Los nombres son requeridos',
@@ -104,7 +104,6 @@ class PerfilController extends Controller
             if($validator->fails()){
                 return ApiResponse::error($validator->errors()->first(),422);
             }
-
             DB::begginTansaction();
 
             //creacion usuario
@@ -113,9 +112,7 @@ class PerfilController extends Controller
                 'email'=>$request->email,
                 'password'=>123456,
               ]);
-
-
-              //actualizacion o creacion de perfil
+//actualizacion o creacion de perfil
               $nuevoPerfil = [
                 'nombres'=>$request->nombres,
                 'apellidos'=>$request->apellidos,
@@ -123,7 +120,7 @@ class PerfilController extends Controller
                 'fecha_nac'=>$request->fechaNac,
                 'id_usuario'=>$user->id
               ];
-              $perfil = Perfil::updateOrCreate([
+               $perfil = Perfil::updateOrCreate([
                 'id'=>$id
               ],$nuevoPerfil);
 
@@ -133,8 +130,9 @@ class PerfilController extends Controller
                 'id_perfil'=>$perfil->id
               ]);
 
-            DB::commit();
-            return ApiResponse::success('Perfil creado correctamente',201);
+            DB::commit();   
+
+             return ApiResponse::success('Perfil creado correctamente',201);
         } catch (\Exception $e) {
             //throw $th;
             return ApiResponse::error('Error al crear el perfil '.$e->getMessage());
