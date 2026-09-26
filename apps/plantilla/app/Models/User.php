@@ -57,19 +57,19 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
     public function perfil(){
-        $this->hasOne(Perfil::class, 'id_usuario','id');
+        return $this->hasOne(Perfil::class, 'id_usuario','id');
     }
     public function proyecto(){
-        $this->HasMany(Proyecto::class, 'id_usuario','id');
+        return $this->HasMany(Proyecto::class, 'id_usuario','id');
     }
     public function usuarioTareaCreador(){
-        $this->HasMany(Tarea::class, 'id_usuario','id');
+        return$this->HasMany(Tarea::class, 'id_usuario','id');
     }
     public function usuarioTareaAsignado(){
-        $this->hasMany(Tarea::class, 'id_asignado','id');
+        return $this->hasMany(Tarea::class, 'id_asignado','id');
     }
     public function comentario(){
-        $this->hasMany(Comentario::class,'id_usuario','id');
+        return $this->hasMany(Comentario::class,'id_usuario','id');
     }
     
 }

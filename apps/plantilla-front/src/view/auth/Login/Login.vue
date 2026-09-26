@@ -47,3 +47,6 @@ import { useLogin } from './composable';
 const { formulario, submit } = useLogin();
 
 </script>
+<style scoped>
+
+</style>

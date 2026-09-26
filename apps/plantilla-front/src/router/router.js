@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import GuestLayout from '../view/layout/guest-layout.vue'
 import AdminLayout from '../view/layout/admin-layout.vue'
-
 import Home from '../view/Home.vue'
 import AdminDashboard from '../view/AdminDashboard.vue'
 import { routerAuth } from '../view/auth/router.js'
@@ -66,7 +65,6 @@ router.beforeEach((to, from, next) => {
         if (isAuthenticated) {
             return next({ name: 'Dashboard' });
         }
-
         return next();
     }
 

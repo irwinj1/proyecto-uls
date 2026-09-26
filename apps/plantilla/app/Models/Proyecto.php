@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Proyecto extends Model
 {
@@ -17,10 +19,10 @@ class Proyecto extends Model
         'estado'
     ];
     public function usuario(){
-        $this->belongsTo(User::class,'id_usuario','id');
+        return$this->belongsTo(User::class,'id_usuario','id');
     }
     public function tareas(){
-        $this->hasMany(Tarea::class,'id_proyecto','id');
+        return $this->hasMany(Tarea::class,'id_proyecto','id');
     }
 
 }

@@ -34,6 +34,14 @@ services:
 
     working_dir: /var/www
 
+    command:
+      - sh
+      - -lc
+      - |
+        find storage bootstrap/cache -type d -exec chmod 777 {} \;
+        find storage bootstrap/cache -type f -exec chmod 666 {} \;
+        exec php-fpm
+
     depends_on:
       - pgsql
       - redis

@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Tarea extends Model
 {
@@ -19,15 +21,15 @@ class Tarea extends Model
         'fecha_finalizacion',
     ];
     public function usuarioCreador(){
-        $this->belongsTo(User::class, 'id_usuario','id');
+        return $this->belongsTo(User::class, 'id_usuario','id');
     }
     public function asignado(){
-        $this->belongsTo(User::class, 'id_asignado','id');
+        return $this->belongsTo(User::class, 'id_asignado','id');
     }
     public function proyectos(){
-        $this->belongsTo(Proyecto::class,'id_proyecto','id');
+        return $this->belongsTo(Proyecto::class,'id_proyecto','id');
     }
     public function comentarios(){
-        $this->hasMany(Comentario::class, 'id_tareas','id');
+        return $this->hasMany(Comentario::class, 'id_tareas','id');
     }
 }
