@@ -5,6 +5,7 @@ import Home from '../view/Home.vue'
 import AdminDashboard from '../view/AdminDashboard.vue'
 import { routerAuth } from '../view/auth/router.js'
 import { configurationRouter } from '../view/configuracion/router.js'
+import {proyectosRouter} from '../view/proyectos/router.js'
 
 const routes = [
   {
@@ -34,7 +35,8 @@ const routes = [
           requiresAuth: true
         }
       },
-      ...configurationRouter
+      ...configurationRouter,
+      ...proyectosRouter
     ],
     meta: {
       requiresAuth: true,

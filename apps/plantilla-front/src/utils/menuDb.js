@@ -6,6 +6,12 @@ export const menuItems = [
         roles:['admin','user','viewer']
     },
     {
+        title: 'Proyectos',
+        icon: 'mdi-filter-cog-outline',
+        to: '/proyectos',
+        roles:['admin','user','viewer']
+    },
+    {
         title: 'Seguridad',
         icon: 'mdi-shield-lock',
         roles:['admin','viewer'],
