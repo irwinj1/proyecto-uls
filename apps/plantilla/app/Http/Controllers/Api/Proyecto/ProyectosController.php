@@ -18,7 +18,7 @@ class ProyectosController extends Controller
           if($request->has('titulo')){
             $proyectos->where('titulo','ilike','%'.$request->titulo.'%');
           }
-          $proyectosPaginated = $proyectos->paginate(10);
+          $proyectosPaginated = $proyectos->paginate(1);
           $paginationData = [
             'current_page' => $proyectosPaginated->currentPage(),
             'last_page' => $proyectosPaginated->lastPage(),

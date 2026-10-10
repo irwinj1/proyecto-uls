@@ -3,6 +3,7 @@ import {computed} from 'vue'
 export const useProyectos = ()=>{
     const store = useProyectosStore();
     const proyectos = computed(()=>store.proyectos)
+    const pagination = computed(()=>store.pagination)
 
     const obtenerProyectos = async()=>{
         try {
@@ -16,6 +17,7 @@ export const useProyectos = ()=>{
 
     return {
         proyectos,
+        pagination, 
         obtenerProyectos
     }
 }
