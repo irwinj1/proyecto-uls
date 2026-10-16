@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { useAlertStore } from "../store/useAlertStore";
+import { useLoaderStore } from "../store/useLoaderStore";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || "http://localhost:8005/api",
@@ -19,6 +20,9 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+    const loaderStore = useLoaderStore();
+
+    loaderStore.showLoader();
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
@@ -33,10 +37,17 @@ api.interceptors.request.use(
  * Interceptor de respuestas
  */
 api.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    const loaderStore = useLoaderStore();
+    loaderStore.hideLoader();
+    return response;
+  },
 
   (error) => {
     const alertStore = useAlertStore();
+    const loaderStore = useLoaderStore();
+
+    loaderStore.hideLoader();
 
     if (!error.response) {
       console.error("Error de conexión con el servidor.");

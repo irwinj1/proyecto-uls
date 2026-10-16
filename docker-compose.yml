@@ -40,7 +40,7 @@ services:
       - |
         find storage bootstrap/cache -type d -exec chmod 777 {} \;
         find storage bootstrap/cache -type f -exec chmod 666 {} \;
-        exec php-fpm
+        exec php-fpm -d opcache.revalidate_freq=60 -d opcache.max_accelerated_files=20000
 
     depends_on:
       - pgsql

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <data-table :verAcciones="acciones" :totalPage="pagination.last_page" :page="pagination.current_page" :headers="headers" :items="proyectos" @viewAction="verProyecto" >
+        <data-table :verAcciones="acciones" :totalPage="pagination.last_page" :page="pagination.current_page" :headers="headers" :items="proyectos" @viewAction="verProyecto"  @update:page="paginationMethod">
         </data-table>
          <v-dialog
       v-model="dialogVerProyecto"
@@ -53,6 +53,8 @@ const verProyecto = (item) =>{
     dialogVerProyecto.value = true;
     proyecto.value = item;
 }
+
+
 
 onMounted(async()=>{
     await obtenerProyectos();

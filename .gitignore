@@ -1,7 +1,8 @@
 #agregar .gitignore a cada repo 
 apps/plantilla/.gitignore
 apps/plantilla-front/.gitignore
-
+apps/plantilla-front/dist
 #nodemodules global
 node_modules
 vendor
+
